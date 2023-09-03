@@ -9,32 +9,19 @@
 </template>
 
 <script>
-import { onMounted } from 'vue';
-// import sourceData from '../data.json';
+
+import sourceData from '../data.json';
 
 export default {
-    data() {
-        return {
-            destination: null
-        }
-    },
     computed: {
         destinationId() {
             return parseInt(this.$route.params.id);
         },
-    },
-
-    methods: {
-        async initData() {
-            const response = await fetch(`https://travel-dummy-api.netlify.app/${this.$route.params.slug}.json`);
-            this.destination = await response.json();
-            console.log(this.destination);
+        destination() {
+            const data = sourceData.destinations.find((destination) => destination.id === this.destinationId);
+            console.log("Data: ", data);
+            return data;
         }
     },
-
-    async created() {
-        this.initData()
-        // this.$watch(() => this.$route.params, this.initData);
-    }
 }
 </script>
