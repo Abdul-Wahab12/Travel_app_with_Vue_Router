@@ -13,12 +13,18 @@
 import sourceData from '../data.json';
 
 export default {
+    props: {
+        id: {
+            type: Number,
+            required: true
+        }
+    },
     computed: {
-        destinationId() {
-            return parseInt(this.$route.params.id);
-        },
+        // destinationId() {
+        //     return parseInt(this.$route.params.id);
+        // },
         destination() {
-            const data = sourceData.destinations.find((destination) => destination.id === this.destinationId);
+            const data = sourceData.destinations.find((destination) => destination.id === this.id);
             console.log("Data: ", data);
             return data;
         }
