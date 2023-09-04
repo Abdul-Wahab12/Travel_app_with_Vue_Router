@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory} from 'vue-router';
 import Home from '../views/Home.vue';
+// import NotFound from '../views/NotFound.vue';
 
 
 const routes =  [
@@ -28,6 +29,12 @@ const routes =  [
             }
         ]
     },
+
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: () => import('../views/NotFound.vue')
+    }
 ]
 
 const router = createRouter({
