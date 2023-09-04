@@ -11,6 +11,19 @@ const routes =  [
         component: Home
     },
     {
+        path: '/protected',
+        name: 'protected',
+        component: () => import('../views/Protected.vue'),
+        meta:{
+            requireAuth: true
+        }
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import('../views/Login.vue')
+    },
+    {
         path: '/destination/:id/:slug',
         name: 'destination.show',
         component: () => import ('../views/DestinationShow.vue'),
@@ -20,6 +33,7 @@ const routes =  [
         }),
         beforeEnter(to, from) {
             const exists = sourceData.destinations.find((destination) => destination.id === parseInt(to.params.id));
+            console.log("Existed Data: ", exists);
 
             if(!exists) {
                 return {
@@ -60,5 +74,12 @@ const router = createRouter({
         })
     }
 });
+
+router.beforeEach((to, from) => {
+    if(to.meta.requireAuth && !window.user) {
+        // need to login if not already login
+        return { name: 'login' }
+    }
+})
 
 export default router;
